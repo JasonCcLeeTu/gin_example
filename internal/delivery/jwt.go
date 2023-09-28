@@ -36,7 +36,7 @@ func CheckAuthorization(c *gin.Context) {
 	token, err := entity_jwt.CheckTokenFormat(auth)
 	if err != nil {
 
-		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"error": err.Error()}) // 這邊要用AbortWithStatusJSON 才能中斷請求,不會執行下面的程序
 		return
 	}
 
