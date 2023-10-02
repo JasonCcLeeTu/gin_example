@@ -1,0 +1,30 @@
+version: "3.8"
+
+services:
+  web:
+      container_name: "gin"
+      build :
+          context: ./
+          dockerfile: dockerfile
+      ports:  
+        - 8070:8070
+      tty: true
+
+  postgres:
+      container_name: postgres
+      image: postgres:11-alpine3.17
+      ports: 
+        - 5532:5432
+      environment:
+        POSTGRES_USER: jacky
+        POSTGRES_PASSWORD: 97325291
+        POSTGRES_DB: test
+      volumes:
+        - D:\temp_data:/var/lib/postgresql/data
+
+
+      
+      
+
+
+
