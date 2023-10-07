@@ -6,9 +6,12 @@ services:
       build :
           context: ./
           dockerfile: dockerfile
+      depends_on :
+        - postgres
       ports:  
         - 8070:8070
       tty: true
+      command: ./cmd/main
 
   postgres:
       container_name: postgres
@@ -16,7 +19,7 @@ services:
       ports: 
         - 5532:5432
       env_file:
-        - .env  #寫跟docker-compose.yaml 相對路徑的.env檔案
+        - .env.db  #寫跟docker-compose.yaml 相對路徑的.env檔案
       volumes:
         - D:\temp_data:/var/lib/postgresql/data
 

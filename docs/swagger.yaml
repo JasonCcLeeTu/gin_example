@@ -1,0 +1,115 @@
+basePath: /v1
+definitions:
+  entityuser.User:
+    properties:
+      account:
+        type: string
+      password:
+        type: string
+    type: object
+  handle.ResponseData:
+    properties:
+      token:
+        type: string
+    type: object
+  handle.ResponseError:
+    properties:
+      code:
+        type: integer
+      message:
+        type: string
+    type: object
+host: localhost:8070
+info:
+  contact: {}
+paths:
+  /login:
+    post:
+      consumes:
+      - application/json
+      description: 帳密登入認證
+      parameters:
+      - description: login
+        in: body
+        name: login
+        required: true
+        schema:
+          $ref: '#/definitions/entityuser.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handle.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handle.ResponseError'
+      summary: login
+      tags:
+      - Account
+  /test:
+    post:
+      description: try test api
+      parameters:
+      - description: bear token
+        in: header
+        name: authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "500":
+          description: Internal Server Error
+          schema:
+            type: string
+      summary: test api
+      tags:
+      - test
+  /token:
+    get:
+      description: 收取token
+      operationId: GetToken
+      produces:
+      - text/plain
+      responses:
+        "200":
+          description: OK
+        "500":
+          description: Internal Server Error
+      summary: Get Token
+      tags:
+      - Token
+  /user:
+    post:
+      consumes:
+      - application/json
+      description: 註冊帳號
+      parameters:
+      - description: register account
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/entityuser.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handle.ResponseData'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/handle.ResponseError'
+      summary: register account
+      tags:
+      - Account
+swagger: "2.0"

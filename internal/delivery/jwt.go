@@ -10,6 +10,15 @@ import (
 	"github.com/google/uuid"
 )
 
+// @Summary Get Token
+// @Description 收取token
+// @Tags Token
+// @ID GetToken
+// @Version 1.0
+// @Produce plain
+// @Router /token [get]
+// @Success 200
+// @Failure 500
 func GetToken(c *gin.Context) {
 
 	newtoken := entity_jwt.NewJwtAnalysis()
