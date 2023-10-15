@@ -8,6 +8,7 @@ WORKDIR  /srv/app
 
 COPY . .
 
+
 RUN go build -o  ./cmd/main ./cmd/main.go
 
 EXPOSE 8070

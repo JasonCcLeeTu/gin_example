@@ -7,21 +7,33 @@ services:
           context: ./
           dockerfile: dockerfile
       depends_on :
-        - postgres
+            postgresql : # 這個是依賴的服務名稱,這邊是依賴postgres
+              condition: service_healthy
+
       ports:  
         - 8070:8070
+        
       tty: true
       command: ./cmd/main
 
-  postgres:
+  postgresql:
       container_name: postgres
-      image: postgres:11-alpine3.17
+      image: new_postgresql:openssl
       ports: 
         - 5532:5432
+        - 6666:22
+      
       env_file:
         - .env.db  #寫跟docker-compose.yaml 相對路徑的.env檔案
       volumes:
         - D:\temp_data:/var/lib/postgresql/data
+      healthcheck:
+          test: ["CMD-SHELL","pg_isready -U jason -d test"]
+          interval: 5s
+          timeout: 5s
+          retries:  3
+      
+      
 
 
       
